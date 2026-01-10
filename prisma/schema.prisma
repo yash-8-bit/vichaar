@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String @db.VarChar(10)
+  password String @db.VarChar(255)
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  uid        String     @unique
+  email      String     @unique
+  first_name String     @db.VarChar(10)
+  last_name  String?    @db.VarChar(10)
+  image      String?    @db.VarChar(255)
+  bio        String?    @db.MediumText
+  password   String     @db.VarChar(255)
+  createdAt  DateTime   @default(now())
+  comments   Comments[]
+  posts      Post[]
+}
+
+model Post {
+  id          Int          @id @default(autoincrement())
+  published   Boolean      @default(false)
+  title       String       @db.VarChar(255)
+  description String       @db.LongText
+  image       String       @db.VarChar(255)
+  views       Int          @default(0)
+  likes       Int          @default(0)
+  authorId    Int
+  categoryId  Int
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  comment     Comments[]
+  author      User         @relation(fields: [authorId], references: [id])
+  category    PostCategory @relation(fields: [categoryId], references: [id])
+
+  @@index([authorId], map: "Post_authorId_fkey")
+  @@index([categoryId], map: "Post_categoryId_fkey")
+}
+
+model PostCategory {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+  post Post[]
+}
+
+model Comments {
+  id        Int      @id @default(autoincrement())
+  comment   String   @db.Text
+  postId    Int
+  userId    Int
+  createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([postId], map: "Comments_postId_fkey")
+  @@index([userId], map: "Comments_userId_fkey")
+}
