@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
         status: 200,
       }
     );
-    response_.cookies.set("__vichaar_", token, {
+    response_.cookies.set("__vichaar__", token, {
       httpOnly: true,
     });
     return response_;

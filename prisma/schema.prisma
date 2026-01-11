@@ -41,6 +41,7 @@ model Post {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   comment     Comments[]
+  slug        String       @db.MediumText
   author      User         @relation(fields: [authorId], references: [id])
   category    PostCategory @relation(fields: [categoryId], references: [id])
 
@@ -51,7 +52,10 @@ model Post {
 model PostCategory {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(255)
+  slug String @db.MediumText
   post Post[]
+
+  @@unique([name])
 }
 
 model Comments {

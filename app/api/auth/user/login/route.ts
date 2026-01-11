@@ -1,7 +1,7 @@
 import prisma from "@/app/lib/prisma";
 import { Validate } from "@/app/utils/zodValidation";
 import loginSchema, { loginSchemaType } from "@/app/validations/zod/login";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import bcrypt from "bcrypt";
 import { generateToken } from "@/app/utils/jwt.util";
 import { TryBackend } from "@/app/utils/ErrorHandle.util";
@@ -15,11 +15,13 @@ export async function POST(req: NextRequest) {
         status: 400,
         message: result.message
       });
+
     const user = await prisma.user.findUnique({
       where: {
         email: result.data.email,
       },
     });
+
     const isMatch: Boolean = user
       ? await bcrypt.compare(result.data.password, user.password)
       : false;
@@ -33,19 +35,16 @@ export async function POST(req: NextRequest) {
       id: user.id,
       email: user.email,
     });
-    const response_ = NextResponse.json(
-      {
-        success: true,
-        message: "Login Successfull",
-        token,
-      },
-      {
-        status: 200,
+    const response_ = response({
+      status : 200,
+      message : "Login Successfull",
+      extra :{
+        token
       }
-    );
-    response_.cookies.set("__vichaar_", token, {
+    })
+    response_.cookies.set("__vichaar__", token, {
       httpOnly: true,
     });
-    return response;
+    return response_;
   });
 }

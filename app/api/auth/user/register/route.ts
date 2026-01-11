@@ -1,6 +1,6 @@
 import prisma from "@/app/lib/prisma";
 import { Validate } from "@/app/utils/zodValidation";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
 import { TryBackend } from "@/app/utils/ErrorHandle.util";
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     return response({
       message: "User Created",
       extra: {
-        id: user.uid,
+        id: user.id,
       },
       status: 201,
     });
