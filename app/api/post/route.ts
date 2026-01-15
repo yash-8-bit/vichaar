@@ -32,7 +32,10 @@ export async function POST(req: NextRequest) {
       (value, key) =>
         (body[key] = key === "categoryId" ? parseInt(value as string) : value)
     );
-    const result = await Validate<postSchemaType>(postSchema, body);
+    const result = await Validate<postSchemaType>(postSchema, {
+      ...body,
+      published: body?.published ? body.published : false,
+    });
     if (!result.data)
       return response({
         status: 400,
@@ -51,6 +54,7 @@ export async function POST(req: NextRequest) {
         authorId: userId,
         description: result.data.description,
         slug: getSlug(result.data.title),
+        published: result.data.published,
       },
     });
     return response({

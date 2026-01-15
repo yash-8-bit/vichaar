@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import cloudinary from "../lib/cloudinary";
 import { response } from "./response.util";
+import { extractPublicId } from "cloudinary-build-url";
 
 export const upload = async ({
   file,
@@ -42,6 +43,23 @@ export const upload = async ({
       success: false,
       data: response({
         message: "File Upload failed Try Again",
+        status: 500,
+      }),
+    };
+  }
+};
+
+export const deletefile = async (
+  url: string
+): Promise<{ success: Boolean; data: NextResponse | string }> => {
+  try {
+     await cloudinary.uploader.destroy(extractPublicId(url));
+    return { success: true, data: "" };
+  } catch (err) {
+    return {
+      success: false,
+      data: response({
+        message: "File Delete failed Try Again",
         status: 500,
       }),
     };

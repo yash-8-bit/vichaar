@@ -8,8 +8,11 @@ const postSchema = z.object({
     .max(255, "Maximum 255 length"),
   description: z.string("Description is Required"),
   categoryId: z.number("Category id is required").min(1),
+  published: z.boolean().default(false),
 });
 
 export type postSchemaType = z.infer<typeof postSchema>;
+
+export const postSchemaOptional = postSchema.partial().strict();
 
 export default postSchema;
