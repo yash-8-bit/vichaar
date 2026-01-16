@@ -36,7 +36,7 @@ export async function PUT(
 ) {
   const { id } = await ctx.params;
   return TryBackend(async () => {
-    const userId = parseInt(req.headers.get("user-id") as string);
+    const userId = parseInt(req.headers.get("_id") as string);
     const isexisted = await prisma.post.findUnique({
       where: { id: parseInt(id), authorId: userId },
     });
@@ -103,7 +103,7 @@ export async function DELETE(
 ) {
   const { id } = await ctx.params;
   return TryBackend(async () => {
-    const userId = parseInt(req.headers.get("user-id") as string);
+    const userId = parseInt(req.headers.get("_id") as string);
     const isexisted = await prisma.post.findUnique({
       where: { id: parseInt(id), authorId: userId },
     });

@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     if (!result.data)
       return response({
         status: 400,
-        message: result.message
+        message: result.message,
       });
 
     const user = await prisma.user.findUnique({
@@ -34,14 +34,15 @@ export async function POST(req: NextRequest) {
     const token = generateToken({
       id: user.id,
       email: user.email,
+      role: "user",
     });
     const response_ = response({
-      status : 200,
-      message : "Login Successfull",
-      extra :{
-        token
-      }
-    })
+      status: 200,
+      message: "Login Successfull",
+      extra: {
+        token,
+      },
+    });
     response_.cookies.set("__vichaar__", token, {
       httpOnly: true,
     });

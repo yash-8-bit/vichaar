@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
         message: "Post Id is Invalid",
       });
     }
-    const userId = parseInt(req.headers.get("user-id") as string);
+    const userId = parseInt(req.headers.get("_id") as string);
     const { id } = await prisma.comments.create({
       data: {
         postId: result.data.postId,

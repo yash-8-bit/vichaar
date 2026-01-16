@@ -2,7 +2,8 @@ import { type NextRequest, NextResponse } from "next/server";
 import { response } from "./app/utils/response.util";
 import { verifyToken } from "./app/utils/jwt.util";
 
-export function proxy(req: NextRequest, res: NextResponse) {
+export async function proxy(req: NextRequest, res: NextResponse) {
+   
   const token = req.cookies.get("__vichaar__");
   const res_ = response({
     message: "Invalid Token",
@@ -11,17 +12,20 @@ export function proxy(req: NextRequest, res: NextResponse) {
   if (!token || !token.value) {
     return res_;
   }
-  const data = verifyToken<{ id: number; name: string; email: string }>(
-    token.value
-  );
+  const data = verifyToken<{
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+  }>(token.value);
   if (!data) {
     return res_;
   }
   const nextres = NextResponse.next();
-  nextres.headers.set("user-id", String(data.id));
+  nextres.headers.set("_id", String(data.id));
+  nextres.headers.set("_role", String(data.role));
   return nextres;
 }
-
 export const config = {
   matcher: "/api/:path*",
 };

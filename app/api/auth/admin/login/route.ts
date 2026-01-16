@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
       id: admin.id,
       name: admin.name,
       email: admin.email,
+      role : "admin"
     });
     const response_ = NextResponse.json(
       {

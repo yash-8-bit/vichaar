@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     if (!success) {
       return data;
     }
-    const userId = parseInt(req.headers.get("user-id") as string);
+    const userId = parseInt(req.headers.get("_id") as string);
     const post = await prisma.post.create({
       data: {
         title: result.data.title,
