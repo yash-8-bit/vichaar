@@ -1,11 +1,11 @@
-import prisma from "@/app/lib/prisma";
-import { Validate } from "@/app/utils/zodValidation";
-import loginSchema, { loginSchemaType } from "@/app/validations/zod/login";
+import prisma from "@/lib/prisma";
+import { Validate } from "@/utils/zodValidation";
+import loginSchema, { loginSchemaType } from "@/validations/zod/login";
 import { NextRequest } from "next/server";
 import bcrypt from "bcrypt";
-import { generateToken } from "@/app/utils/jwt.util";
-import { TryBackend } from "@/app/utils/ErrorHandle.util";
-import { response } from "@/app/utils/response.util";
+import { generateToken } from "@/utils/jwt.util";
+import { TryBackend } from "@/utils/ErrorHandle.util";
+import { response } from "@/utils/response.util";
 export async function POST(req: NextRequest) {
   return TryBackend(async () => {
     const body = await req.json();

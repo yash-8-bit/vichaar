@@ -1,4 +1,4 @@
-import { ZodObject, ZodSafeParseResult } from "zod";
+import { ZodObject } from "zod";
 
 export async function Validate<T>(
   schema: ZodObject,

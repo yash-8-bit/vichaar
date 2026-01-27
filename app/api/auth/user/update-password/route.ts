@@ -1,6 +1,6 @@
-import prisma from "@/app/lib/prisma";
-import { TryBackend } from "@/app/utils/ErrorHandle.util";
-import { response } from "@/app/utils/response.util";
+import prisma from "@/lib/prisma";
+import { TryBackend } from "@/utils/ErrorHandle.util";
+import { response } from "@/utils/response.util";
 import { NextRequest } from "next/server";
 import bcrypt from "bcrypt";
 

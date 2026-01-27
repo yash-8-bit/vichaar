@@ -1,13 +1,13 @@
-import prisma from "@/app/lib/prisma";
-import { Validate } from "@/app/utils/zodValidation";
+import prisma from "@/lib/prisma";
+import { Validate } from "@/utils/zodValidation";
 import { NextRequest } from "next/server";
 import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
-import { TryBackend } from "@/app/utils/ErrorHandle.util";
+import { TryBackend } from "@/utils/ErrorHandle.util";
 import registerSchema, {
   registerSchemaType,
-} from "@/app/validations/zod/register.user";
-import { response } from "@/app/utils/response.util";
+} from "@/validations/zod/register.user";
+import { response } from "@/utils/response.util";
 
 export async function POST(req: NextRequest) {
   return TryBackend(async () => {

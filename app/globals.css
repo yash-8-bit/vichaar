@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+.font-1{
+    font-family:  var(--font-nunito);
+}
+
+.font-2{
+    font-family: var(--font-buda);
+}

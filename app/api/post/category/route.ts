@@ -1,11 +1,11 @@
-import prisma from "@/app/lib/prisma";
-import { TryBackend } from "@/app/utils/ErrorHandle.util";
-import { response } from "@/app/utils/response.util";
-import { getSlug } from "@/app/utils/slug.util";
-import { Validate } from "@/app/utils/zodValidation";
+import prisma from "@/lib/prisma";
+import { TryBackend } from "@/utils/ErrorHandle.util";
+import { response } from "@/utils/response.util";
+import { getSlug } from "@/utils/slug.util";
+import { Validate } from "@/utils/zodValidation";
 import postCategorySchema, {
   postCategorySchemaType,
-} from "@/app/validations/zod/postCategory.admin";
+} from "@/validations/zod/postCategory.admin";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {

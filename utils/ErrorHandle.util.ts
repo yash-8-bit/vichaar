@@ -4,7 +4,7 @@ export const TryBackend = async (callback: Function) => {
   try {
     return await callback();
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return response({
       status: 500,
       message: "Internal Server Error",

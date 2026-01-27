@@ -1,9 +1,9 @@
-import prisma from "@/app/lib/prisma";
-import { deletefile, upload } from "@/app/utils/cloudinary.util";
-import { TryBackend } from "@/app/utils/ErrorHandle.util";
-import { response } from "@/app/utils/response.util";
-import { Validate } from "@/app/utils/zodValidation";
-import  { userSchemaOptional, userSchemaType } from "@/app/validations/zod/user";
+import prisma from "@/lib/prisma";
+import { deletefile, upload } from "@/utils/cloudinary.util";
+import { TryBackend } from "@/utils/ErrorHandle.util";
+import { response } from "@/utils/response.util";
+import { Validate } from "@/utils/zodValidation";
+import  { userSchemaOptional, userSchemaType } from "@/validations/zod/user";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {

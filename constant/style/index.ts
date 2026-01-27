@@ -1,0 +1,1 @@
+export const ERRORPARA = "text-xs text-red-500 font-bold"

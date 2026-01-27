@@ -1,10 +1,10 @@
-import prisma from "@/app/lib/prisma";
-import { upload } from "@/app/utils/cloudinary.util";
-import { TryBackend } from "@/app/utils/ErrorHandle.util";
-import { response } from "@/app/utils/response.util";
-import { getSlug } from "@/app/utils/slug.util";
-import { Validate } from "@/app/utils/zodValidation";
-import postSchema, { postSchemaType } from "@/app/validations/zod/post.user";
+import prisma from "@/lib/prisma";
+import { upload } from "@/utils/cloudinary.util";
+import { TryBackend } from "@/utils/ErrorHandle.util";
+import { response } from "@/utils/response.util";
+import { getSlug } from "@/utils/slug.util";
+import { Validate } from "@/utils/zodValidation";
+import postSchema, { postSchemaType } from "@/validations/zod/post.user";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {

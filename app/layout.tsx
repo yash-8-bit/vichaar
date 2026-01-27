@@ -1,16 +1,15 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Nunito, Buda } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const buda = Buda({
+  variable: "--font-buda",
   subsets: ["latin"],
+  weight: "300",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
 });
-
 
 export default function RootLayout({
   children,
@@ -19,10 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${buda.variable} ${nunito.variable} antialiased`}>
+        <main className="min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
   );
