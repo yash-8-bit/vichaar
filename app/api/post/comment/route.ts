@@ -9,7 +9,12 @@ import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   return TryBackend(async () => {
-    const data = await prisma.comments.findMany();
+    const page = Number(req.nextUrl.searchParams.get("page") || 1);
+    const limit = Number(req.nextUrl.searchParams.get("limit") || 10);
+    const data = await prisma.comments.findMany({
+      take: limit,
+      skip: (page - 1) * limit,
+    });
     return response({
       status: 200,
       data: data,

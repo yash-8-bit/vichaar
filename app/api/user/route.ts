@@ -3,16 +3,20 @@ import { deletefile, upload } from "@/utils/cloudinary.util";
 import { TryBackend } from "@/utils/ErrorHandle.util";
 import { response } from "@/utils/response.util";
 import { Validate } from "@/utils/zodValidation";
-import  { userSchemaOptional, userSchemaType } from "@/validations/zod/user";
+import { userSchemaOptional, userSchemaType } from "@/validations/zod/user";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   return TryBackend(async () => {
     const role = req.headers.get("_role");
     if (role === "admin") {
-      return response({
-        status: 200,
-        data: await prisma.user.findMany({
+      const page = Number(req.nextUrl.searchParams.get("page") || 1);
+      const limit = Number(req.nextUrl.searchParams.get("limit") || 10);
+      const [total, data] = await Promise.all([
+        prisma.user.count({}),
+        prisma.user.findMany({
+          take: limit,
+          skip: (page - 1) * limit,
           select: {
             email: true,
             first_name: true,
@@ -20,6 +24,18 @@ export async function GET(req: NextRequest) {
             createdAt: true,
           },
         }),
+      ]);
+      return response({
+        status: 200,
+        data,
+        extra: {
+          pagination: {
+            page,
+            limit,
+            totalPages: Math.round(total / limit),
+            total
+          },
+        },
       });
     } else {
       const id = req.headers.get("_id");
