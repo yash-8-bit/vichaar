@@ -1,4 +1,4 @@
-interface Pagination {
+interface PaginationType {
   page: number;
   limit: number;
   totalPages: number;

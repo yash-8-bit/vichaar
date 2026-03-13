@@ -19,6 +19,7 @@ export async function GET(req: NextRequest) {
           skip: (page - 1) * limit,
           select: {
             email: true,
+            id : true,
             first_name: true,
             last_name: true,
             createdAt: true,

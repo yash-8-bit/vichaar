@@ -1,8 +1,5 @@
-import { Nunito, Buda, Geist } from "next/font/google";
+import { Nunito, Buda, } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const buda = Buda({
   variable: "--font-buda",
@@ -23,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+    <html lang="en">
       <body className={`${buda.variable} ${nunito.variable} antialiased`}>
         <main className="min-h-screen">
          

@@ -14,8 +14,6 @@ export async function proxy(req: NextRequest, res: NextResponse) {
   }
   const data = verifyToken<{
     id: number;
-    name: string;
-    email: string;
     role: string;
   }>(token.value);
   if (!data) {
